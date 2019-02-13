@@ -22,8 +22,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
     }
+
+    apply from: "$rootDir/dependencies.gradle"
+    apply from: "$rootDir/tools/ktlint.gradle"
 }
 
 task clean(type: Delete) {
