@@ -1,18 +1,29 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: "$rootDir/dependencies.gradle"
 
 android {
-    compileSdkVersion 28
+    def baseAppId = "com.example.tmdbsample"
+    compileSdkVersion androidCompileSdkVersion
     defaultConfig {
-        applicationId "com.example.tmdbsample"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId baseAppId
+
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
     }
     buildTypes {
         release {
@@ -20,14 +31,62 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions {
+        experimental = true
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "TMDB-Sample-${variant.buildType.name}-${variant.versionName}(${variant.versionCode}).apk"
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation libs.kotlin.kotlin_std
+
+    implementation libs.support.v4
+    implementation libs.support.appCompat
+    implementation libs.support.compat
+    implementation libs.support.design
+    implementation libs.support.recyclerView
+
+    implementation libs.support.constraint
+
+    // Room
+    implementation libs.room.runtime
+    kapt libs.room.compiler
+
+
+    implementation libs.lifecycle.runtime
+    implementation libs.lifecycle.extensions
+    kapt libs.lifecycle.compiler
+
+
+    // RETROFIT
+    implementation libs.retrofit.gson
+    implementation libs.retrofit.retrofit
+    implementation libs.retrofit.converterGson
+    implementation libs.retrofit.adapaterRxJava
+    implementation libs.retrofit.loggingInterceptor
+
+    implementation libs.rx.rxJava
+    implementation libs.rx.rxAndroid
+    implementation libs.rx.rxKotlin
+
+    implementation libs.koin.core
+    implementation libs.koin.android
+    implementation libs.koin.architecture
+
+    implementation libs.glide.glide, {
+        exclude group: "com.android.support"
+    }
+    implementation libs.glide.okhttp, {
+        transitive = false
+    }
+    implementation libs.glide.annotations
+    kapt libs.glide.compiler
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
