@@ -100,7 +100,6 @@ dependencies {
     implementation libs.lifecycle.extensions
     kapt libs.lifecycle.compiler
 
-
     // RETROFIT
     implementation libs.retrofit.gson
     implementation libs.retrofit.retrofit

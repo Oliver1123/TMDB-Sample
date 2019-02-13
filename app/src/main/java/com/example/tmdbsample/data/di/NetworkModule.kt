@@ -1,4 +1,4 @@
-package com.example.tmdbsample.data.network
+package com.example.tmdbsample.data.di
 
 import com.example.tmdbsample.BuildConfig
 import com.example.tmdbsample.data.network.interceptor.ServerAuthInterceptor
@@ -19,7 +19,12 @@ val networkModule = module {
     single { ServerAuthInterceptor() }
 
     single { getClient(get()) }
-    single { getRetrofit(get(), get(BASE_URL)) }
+    single {
+        getRetrofit(
+            get(),
+            get(BASE_URL)
+        )
+    }
 }
 
 

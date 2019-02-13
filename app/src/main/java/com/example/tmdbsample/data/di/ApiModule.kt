@@ -1,4 +1,4 @@
-package com.example.tmdbsample.data.network
+package com.example.tmdbsample.data.di
 
 import com.example.tmdbsample.data.network.api.MoviesApi
 import org.koin.dsl.module.module
