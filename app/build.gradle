@@ -2,11 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+apply plugin: 'io.fabric'
 
+def STRING = "String"
+def baseAppId = "com.example.tmdbsample"
 
 android {
-    def STRING = "String"
-    def baseAppId = "com.example.tmdbsample"
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
         applicationId baseAppId
@@ -76,6 +78,31 @@ android {
             outputFileName = "TMDB-Sample-${variant.buildType.name}-${variant.versionName}(${variant.versionCode}).apk"
         }
     }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+    testOptions {
+        animationsDisabled = true
+
+        unitTests {
+            includeAndroidResources = true
+        }
+
+        unitTests.all {
+            testLogging {
+                outputs.upToDateWhen { false }
+                events "passed", "failed", "standardError"
+                showCauses true
+                showExceptions true
+            }
+        }
+    }
+}
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation "${baseAppId}.testing.OpenClass"
 }
 
 dependencies {
@@ -126,4 +153,32 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
+
+    // TEST DEPENDENCIES
+    testImplementation libs.testing.junit
+    testImplementation libs.room.testing
+    testImplementation libs.lifecycle.testing
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.mockitoKotlin
+    testImplementation 'org.json:json:20180813'
+
+    androidTestImplementation libs.koin.test, {
+        exclude group: 'org.mockito'
+    }
+
+    androidTestImplementation libs.testing.espresso, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation libs.testing.espressoIntent
+    androidTestImplementation libs.testing.espressoContrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    androidTestImplementation libs.testing.runner
+    androidTestImplementation libs.testing.rules
+    androidTestImplementation libs.mockito.mockitoAndroid
+    androidTestImplementation libs.lifecycle.testing
+
+    androidTestImplementation libs.retrofit.mockServer
 }

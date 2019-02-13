@@ -12,6 +12,7 @@ import com.example.tmdbsample.data.network.model.PagedResult
 import com.example.tmdbsample.data.network.model.ShortMovieApi
 import com.example.tmdbsample.data.repository.NetworkBoundResource
 import com.example.tmdbsample.domain.model.Result
+import com.example.tmdbsample.testing.OpenForTesting
 import com.example.tmdbsample.utils.AppExecutors
 import com.example.tmdbsample.utils.toLiveData
 import timber.log.Timber
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@OpenForTesting
 class LatestMoviesRepository(
     private val moviesApi: MoviesApi,
     private val db: MoviesDatabase,

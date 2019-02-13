@@ -3,7 +3,9 @@ package com.example.tmdbsample.data.local.source
 import com.example.tmdbsample.data.local.db.dao.PagesDao
 import com.example.tmdbsample.data.local.db.model.PageInfo
 import com.example.tmdbsample.data.local.db.model.PageInfoEntity
+import com.example.tmdbsample.testing.OpenForTesting
 
+@OpenForTesting
 class PagesSource(private val dao: PagesDao) {
 
     fun getLatestMoviesPage() = getByType(TYPE_LATEST)

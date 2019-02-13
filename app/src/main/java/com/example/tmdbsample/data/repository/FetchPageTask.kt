@@ -4,19 +4,19 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.example.tmdbsample.data.local.db.model.PageInfo
 import com.example.tmdbsample.domain.model.Result
+import com.example.tmdbsample.utils.AppExecutors
 import io.reactivex.Single
 import timber.log.Timber
 import java.io.IOException
-import java.util.concurrent.Executor
 
-abstract class FetchPageTask<ResponseType>(private val executor: Executor) {
+abstract class FetchPageTask<ResponseType>(private val executors: AppExecutors) {
     private val _liveData = MutableLiveData<Result<Boolean>>()
 
     /**
      * Return request result, Boolean data true if it is possible to request for another page
      */
     fun asLiveData(): LiveData<Result<Boolean>> {
-        executor.execute {
+        executors.networkIO().execute {
             run()
         }
         return _liveData
