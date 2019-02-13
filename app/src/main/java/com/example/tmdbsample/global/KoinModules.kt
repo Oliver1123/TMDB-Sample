@@ -1,7 +1,10 @@
 package com.example.tmdbsample.global
 
-import org.koin.dsl.module.Module
+import com.example.tmdbsample.data.network.apiModule
+import com.example.tmdbsample.data.network.networkModule
 
 
-val appModules = listOf<Module>(
+val appModules = listOf(
+    networkModule,
+    apiModule
 )

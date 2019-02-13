@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/dependencies.gradle"
 
 android {
+    def STRING = "String"
     def baseAppId = "com.example.tmdbsample"
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
@@ -56,6 +57,15 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "stage"
+    productFlavors {
+        prod {
+            dimension "stage"
+            buildConfigField STRING, "API_KEY", '"dfc98e46c2b0ce3513a0a149d1b90441"'
+            buildConfigField STRING, "URL_BASE", '"https://api.themoviedb.org"'
+            buildConfigField STRING, "API_VERSION", '"3"'
         }
     }
     androidExtensions {
