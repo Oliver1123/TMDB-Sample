@@ -4,7 +4,8 @@ import android.arch.lifecycle.LiveData
 import com.example.tmdbsample.data.local.db.model.ShortMovieEntity
 import com.example.tmdbsample.data.repository.movies.LatestMoviesRepository
 import com.example.tmdbsample.domain.model.Result
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class GetLatestMoviesUseCase(private val latestMoviesRepository: LatestMoviesRepository) {
 

@@ -8,7 +8,6 @@ import com.example.tmdbsample.domain.usecase.useCaseModule
 import com.example.tmdbsample.presentation.viewModelModule
 import com.example.tmdbsample.utils.utilsModule
 
-
 val appModules = listOf(
     networkModule,
     apiModule,

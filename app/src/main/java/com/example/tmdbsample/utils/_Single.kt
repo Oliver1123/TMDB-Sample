@@ -8,7 +8,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 
-
 fun <T : Any> Single<T>.toLiveData(withLoading: Boolean = false): LiveData<Result<T>> {
     return RxSingleLiveData(this, withLoading = withLoading)
 }

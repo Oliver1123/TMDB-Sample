@@ -9,7 +9,6 @@ import com.example.tmdbsample.data.local.db.dao.ShortMoviesDao
 import com.example.tmdbsample.data.local.db.model.PageInfoEntity
 import com.example.tmdbsample.data.local.db.model.ShortMovieEntity
 
-
 @Database(
     entities = [PageInfoEntity::class,
         ShortMovieEntity::class

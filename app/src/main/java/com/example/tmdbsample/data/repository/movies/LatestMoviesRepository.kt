@@ -16,7 +16,8 @@ import com.example.tmdbsample.utils.AppExecutors
 import com.example.tmdbsample.utils.toLiveData
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class LatestMoviesRepository(
     private val moviesApi: MoviesApi,
@@ -26,7 +27,7 @@ class LatestMoviesRepository(
     private val executors: AppExecutors
 ) {
 
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US) //2019-01-01
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US) // 2019-01-01
 
     fun getMovies(
         startDate: Date,
@@ -64,8 +65,6 @@ class LatestMoviesRepository(
                 val endDateStr = dateFormat.format(endDate)
                 return moviesApi.getMovies(startDateStr, endDateStr, 1).toLiveData()
             }
-
         }.asLiveData()
     }
-
 }

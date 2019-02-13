@@ -1,6 +1,5 @@
 package com.example.tmdbsample.presentation.home.movies
 
-
 import android.os.Bundle
 import com.example.tmdbsample.R
 import com.example.tmdbsample.data.local.db.model.ShortMovieEntity
@@ -26,7 +25,6 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun handleMovies(result: Result<List<ShortMovieEntity>>?) {
-
     }
 
     companion object {

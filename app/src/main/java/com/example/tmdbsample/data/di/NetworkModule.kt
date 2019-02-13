@@ -27,7 +27,6 @@ val networkModule = module {
     }
 }
 
-
 private fun getBaseUrl(): String =
     "${BuildConfig.URL_BASE}/${BuildConfig.API_VERSION}/"
 

@@ -11,7 +11,5 @@ val localModule = module {
 
     single { (get() as MoviesDatabase).pagesDao() }
 
-
     single { PagesSource(get()) }
-
 }
