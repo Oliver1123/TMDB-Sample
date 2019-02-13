@@ -25,10 +25,37 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-    buildTypes {
+    // to build the app put keystore.properties file into 'credentials' directory of the application
+    def credentialsDir = "credentials"
+    def keystorePropertiesFile = rootProject.file("${credentialsDir}/keystore.properties")
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile rootProject.file("${credentialsDir}/${keystoreProperties['file']}")
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        all {
+            signingConfig signingConfigs.release
+        }
+        debug {
+            useProguard false
+            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics
+            ext.alwaysUpdateBuildId = false
+            // Disable fabric build ID generation for debug builds
+            ext.enableCrashlytics = false
+            testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     androidExtensions {
@@ -89,4 +116,5 @@ dependencies {
     kapt libs.glide.compiler
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 }
