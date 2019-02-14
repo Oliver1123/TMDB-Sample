@@ -17,7 +17,8 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode VERSION_CODE
         versionName VERSION_NAME
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "${baseAppId}.runner.MockRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {

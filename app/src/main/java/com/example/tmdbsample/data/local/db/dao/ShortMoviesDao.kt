@@ -8,17 +8,17 @@ import android.arch.persistence.room.Query
 import com.example.tmdbsample.data.local.db.model.ShortMovieEntity
 
 @Dao
-interface ShortMoviesDao {
+abstract class ShortMoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(items: List<ShortMovieEntity>)
+    abstract fun insert(items: List<ShortMovieEntity>)
 
     @Query("SELECT * FROM short_movies")
-    fun getMovies(): LiveData<List<ShortMovieEntity>>
+    abstract fun getMovies(): LiveData<List<ShortMovieEntity>>
 
     @Query("DELETE FROM short_movies WHERE id = :id")
-    fun delete(id: Long): Int
+    abstract fun delete(id: Long): Int
 
     @Query("DELETE FROM short_movies")
-    fun clear()
+    abstract fun clear()
 }

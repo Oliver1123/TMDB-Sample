@@ -8,11 +8,11 @@ import com.example.tmdbsample.data.local.db.model.PageInfo
 import com.example.tmdbsample.data.local.db.model.PageInfoEntity
 
 @Dao
-interface PagesDao {
+abstract class PagesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(pageInfo: PageInfoEntity)
+    abstract fun insert(pageInfo: PageInfoEntity)
 
     @Query("SELECT total, page FROM pages WHERE type = :type")
-    fun get(type: String): PageInfo?
+    abstract fun get(type: String): PageInfo?
 }
