@@ -15,6 +15,5 @@ abstract class BaseMockTest : KoinComponent {
     @Before
     fun initTest() {
         db.clearAllTables()
-
     }
 }

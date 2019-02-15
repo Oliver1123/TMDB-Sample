@@ -19,4 +19,15 @@ abstract class BaseFragment : Fragment() {
 
     @LayoutRes
     abstract fun getLayoutRes(): Int
+
+    fun showDefaultLoader(show: Boolean) {
+        baseActivity?.showLoader(show)
+    }
+
+    val baseActivity: BaseActivity?
+        get() = activity as BaseActivity?
+
+    fun handleError(throwable: Throwable, logMessage: String? = null) {
+        baseActivity?.handleError(throwable, logMessage)
+    }
 }

@@ -17,7 +17,6 @@ import org.mockito.Mockito
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-
 @RunWith(Parameterized::class)
 class FetchPageTaskTest(private val useRealExecutors: Boolean) : BaseTest() {
 

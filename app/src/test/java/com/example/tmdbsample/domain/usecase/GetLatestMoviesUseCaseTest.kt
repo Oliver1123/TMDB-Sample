@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.mock
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-import java.util.Calendar
+import java.util.Date
 
 class GetLatestMoviesUseCaseTest : BaseTest() {
 
@@ -20,24 +20,12 @@ class GetLatestMoviesUseCaseTest : BaseTest() {
     }
 
     @Test
-    fun `verify 2 weeks date set up`() {
-        val calendar = Calendar.getInstance()
+    fun `verify that repository method is triggered`() {
+        val date = Date()
 
-        val date = calendar.apply {
-            set(2000, 10, 15)
-        }.time
+        useCase(date, date, true)
 
-        useCase(date, true)
-
-        val expectedStartDate = calendar.apply {
-            set(2000, 10, 1)
-        }.time
-
-        val expectedEndDate = calendar.apply {
-            set(2000, 10, 29)
-        }.time
-
-        Mockito.verify(repository).getMovies(expectedStartDate, expectedEndDate, true)
+        Mockito.verify(repository).getMovies(date, date, true)
         Mockito.verifyNoMoreInteractions(repository)
     }
 }

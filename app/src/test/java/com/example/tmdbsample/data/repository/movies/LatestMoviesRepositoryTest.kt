@@ -28,8 +28,7 @@ import org.mockito.Mockito
 import java.util.Calendar
 import java.util.Date
 
-
-class MatchesRepositoryTest : BaseTest() {
+class LatestMoviesRepositoryTest : BaseTest() {
     private lateinit var repository: LatestMoviesRepository
     private val dao: ShortMoviesDao = mock()
     private val pagesSource: PagesSource = mock()
@@ -88,7 +87,6 @@ class MatchesRepositoryTest : BaseTest() {
             set(2000, 10, 29) // java Date month 10 is November
         }.time
 
-
         val value = getValue(repository.getMovies(expectedStartDate, expectedEndDate, true))
 
         Mockito.verify(api).getMovies("2000-11-01", "2000-11-29", 1)
@@ -140,5 +138,4 @@ class MatchesRepositoryTest : BaseTest() {
         Mockito.verify(dao).insert(movies)
         Mockito.verifyNoMoreInteractions(dao)
     }
-
 }

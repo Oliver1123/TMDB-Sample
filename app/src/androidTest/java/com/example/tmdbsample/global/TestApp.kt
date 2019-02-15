@@ -25,5 +25,4 @@ class TestApp : App() {
 
         startKoin(this, modules)
     }
-
 }

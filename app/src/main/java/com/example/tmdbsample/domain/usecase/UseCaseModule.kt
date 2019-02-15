@@ -4,4 +4,7 @@ import org.koin.dsl.module.module
 
 val useCaseModule = module {
     single { GetLatestMoviesUseCase(get()) }
+    single { LoadNextLatestMoviesPageUseCase(get()) }
+
+    factory { MoviesDateProvider() }
 }

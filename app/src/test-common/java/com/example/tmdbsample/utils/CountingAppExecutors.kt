@@ -16,7 +16,6 @@
 
 package com.example.tmdbsample.utils
 
-
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit

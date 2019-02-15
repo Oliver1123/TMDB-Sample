@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TMDB sample</string>
+    <string name="movies_no_data_found">Sorry, we didn\'t found movies that match your request</string>
 </resources>

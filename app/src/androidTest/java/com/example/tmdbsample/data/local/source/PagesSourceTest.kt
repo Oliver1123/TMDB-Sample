@@ -7,7 +7,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.koin.standalone.inject
 
-
 class PagesSourceTest : BaseMockTest() {
     private val pagesSource: PagesSource by inject()
 

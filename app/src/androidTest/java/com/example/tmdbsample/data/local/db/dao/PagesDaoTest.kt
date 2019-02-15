@@ -7,7 +7,6 @@ import org.hamcrest.MatcherAssert
 import org.junit.Test
 import org.koin.standalone.inject
 
-
 class PagesDaoTest : BaseMockTest() {
     private val dao: PagesDao by inject()
 
